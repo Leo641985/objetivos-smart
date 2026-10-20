@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Objetivos SMART · Omar Martínez Santiago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F7FC; --surface:#FFFFFF; --ink:#16213E; --muted:#55607A; --line:#D7DDEA;
+  --accent:#2B54E0; --accent-ink:#FFFFFF; --accent-soft:#E6ECFD;
+  --mark:#FFE36E; --mark-ink:#16213E; --ok:#1C7F49; --bad:#B8322B;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1422; --surface:#171E30; --ink:#E7ECF7; --muted:#A3AEC6; --line:#2A3350;
+    --accent:#86A2FF; --accent-ink:#0F1422; --accent-soft:#1E2A4D;
+    --mark:#5C4B0E; --mark-ink:#FFF0B3; --ok:#4CC38A; --bad:#FF8076;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1422; --surface:#171E30; --ink:#E7ECF7; --muted:#A3AEC6; --line:#2A3350;
+  --accent:#86A2FF; --accent-ink:#0F1422; --accent-soft:#1E2A4D;
+  --mark:#5C4B0E; --mark-ink:#FFF0B3; --ok:#4CC38A; --bad:#FF8076;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.7}
+img{max-width:100%}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+.prose{max-width:40rem}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;margin-bottom:.75rem}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0 0 1rem}
+section{padding:4.5rem 0;border-top:1px solid var(--line)}
+.lead{color:var(--muted);font-size:1.125rem}
+
+/* Navegación */
+nav{display:flex;gap:1.25rem;flex-wrap:wrap;padding:1.25rem 0;font-family:var(--display);font-weight:500;font-size:.95rem}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--ink);text-decoration:underline}
+
+/* Hero */
+.hero{padding:2.5rem 0 4.5rem}
+.hero h1{font-size:clamp(2.75rem,9vw,6rem);font-weight:800;letter-spacing:-.03em;margin-bottom:1rem}
+.hero .lead{max-width:36rem;margin-bottom:2.5rem}
+.letters{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;max-width:40rem}
+.letter{appearance:none;border:2px solid var(--line);background:var(--surface);color:var(--muted);border-radius:14px;padding:.6rem .25rem .7rem;cursor:pointer;font-family:var(--display);text-align:center;transition:border-color .2s,background .2s,color .2s,transform .15s}
+.letter b{display:block;font-size:clamp(2.25rem,8vw,3.75rem);font-weight:800;line-height:1}
+.letter span{display:block;font-size:.8rem;font-weight:500;margin-top:.25rem}
+.letter:hover{border-color:var(--accent);color:var(--ink)}
+.letter[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.letter:active{transform:scale(.97)}
+.goal{max-width:40rem;margin-top:1.5rem;padding:1.5rem 1.5rem 1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:6px 6px 22px 6px}
+.goal-text{font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.5;margin:0 0 1rem;min-height:4.5em}
+.goal-text mark{background:linear-gradient(transparent 8%,var(--mark) 8%,var(--mark) 92%,transparent 92%);color:var(--mark-ink);padding:0 .1em;border-radius:2px;animation:ink .45s ease-out}
+@keyframes ink{from{background-size:0 100%}to{background-size:100% 100%}}
+.goal-text mark{background-repeat:no-repeat}
+.meter{display:flex;align-items:center;gap:.75rem;font-family:var(--display);font-size:.9rem;color:var(--muted)}
+.meter-bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.meter-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.hint{font-size:.95rem;color:var(--muted);margin-top:.75rem;margin-bottom:0}
+
+/* Origen */
+.split{display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media(min-width:860px){.split{grid-template-columns:1.3fr 1fr;align-items:start}}
+.compare{width:100%;border-collapse:collapse;font-size:.98rem}
+.compare th,.compare td{text-align:left;padding:.55rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+.compare th{font-family:var(--display);font-weight:700;color:var(--muted);font-size:.9rem}
+.compare td:first-child{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--accent)}
+.scroll{overflow-x:auto}
+.aside-note{font-size:.95rem;color:var(--muted);margin-top:1rem}
+
+/* Criterios */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:2rem 0 0}
+.tab{appearance:none;border:2px solid var(--line);background:transparent;color:var(--ink);font-family:var(--display);font-weight:700;font-size:1rem;padding:.55rem 1rem;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.panel{margin-top:1.25rem;display:grid;grid-template-columns:1fr;gap:2rem;padding:2rem;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+@media(min-width:860px){.panel{grid-template-columns:auto 1fr 1fr}}
+.panel-letter{font-family:var(--display);font-weight:800;font-size:clamp(5rem,14vw,9rem);line-height:.8;color:var(--accent)}
+.panel h3{font-size:1.6rem;margin-bottom:.5rem}
+.panel ul{margin:0;padding-left:1.2rem}
+.panel li{margin-bottom:.35rem}
+.ex{border-left:4px solid;padding:.5rem 0 .5rem 1rem;margin-bottom:1rem}
+.ex.weak{border-color:var(--bad)}
+.ex.strong{border-color:var(--ok)}
+.ex small{display:block;font-family:var(--display);font-weight:700;font-size:.85rem}
+.ex.weak small{color:var(--bad)}
+.ex.strong small{color:var(--ok)}
+.ex p{margin:0;font-style:italic}
+
+/* Constructor */
+.builder{display:grid;grid-template-columns:1fr;gap:2rem;margin-top:2rem}
+@media(min-width:900px){.builder{grid-template-columns:1fr 1fr;align-items:start}}
+.field{margin-bottom:1.1rem}
+.field label{display:flex;align-items:baseline;gap:.5rem;font-family:var(--display);font-weight:700;margin-bottom:.35rem}
+.field label b{color:var(--accent);font-size:1.15rem}
+.field label em{font-style:normal;font-weight:500;color:var(--muted);font-size:.88rem}
+.field input{width:100%;font:inherit;font-size:1rem;padding:.7rem .8rem;border:2px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.field input:focus{border-color:var(--accent);outline:none}
+.btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{appearance:none;font-family:var(--display);font-weight:700;font-size:.98rem;padding:.7rem 1.1rem;border-radius:8px;cursor:pointer;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.result{position:sticky;top:calc(env(safe-area-inset-top,0px) + 1rem);background:var(--surface);border:1px solid var(--line);border-radius:6px 6px 22px 6px;padding:1.5rem}
+.result h3{margin-bottom:.75rem}
+.result .out{font-size:1.15rem;line-height:1.6;margin-bottom:1.25rem}
+.result .out.empty{color:var(--muted);font-style:italic}
+.checks{list-style:none;margin:0 0 1.25rem;padding:0}
+.checks li{display:flex;gap:.6rem;align-items:flex-start;padding:.4rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.checks li:last-child{border-bottom:0}
+.dot{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.85rem;border:2px solid var(--line);color:var(--muted)}
+.checks li.ok .dot{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.status{font-size:.9rem;color:var(--ok);min-height:1.4em;margin:.5rem 0 0}
+
+/* Quiz */
+.quiz{max-width:44rem;margin-top:2rem}
+.q-meta{display:flex;justify-content:space-between;font-family:var(--display);color:var(--muted);font-size:.92rem;margin-bottom:.75rem}
+.q-text{font-size:clamp(1.2rem,2.6vw,1.45rem);font-style:italic;padding:1.5rem;background:var(--surface);border:1px solid var(--line);border-radius:6px;margin-bottom:1rem}
+.q-prompt{font-family:var(--display);font-weight:500;margin-bottom:.6rem}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{appearance:none;font-family:var(--display);font-weight:700;font-size:1rem;padding:.6rem 1rem;border-radius:8px;cursor:pointer;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.right{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.opt.wrong{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.opt:disabled{cursor:default}
+.feedback{margin-top:1rem;min-height:3em}
+.feedback strong{font-family:var(--display)}
+
+/* Scrum */
+.scrum{display:grid;grid-template-columns:1fr;gap:2rem;margin-top:2rem}
+@media(min-width:860px){.scrum{grid-template-columns:repeat(3,1fr)}}
+.scrum h3{margin-bottom:.5rem}
+.scrum p{font-size:1rem}
+.transform{margin-top:2.5rem;padding:1.5rem;border:2px dashed var(--line);border-radius:6px}
+.transform p{margin-bottom:.5rem}
+
+/* Ventajas */
+.pros{display:grid;grid-template-columns:1fr;gap:2rem;margin-top:1.5rem}
+@media(min-width:760px){.pros{grid-template-columns:1fr 1fr}}
+.pros ul{margin:0;padding-left:1.2rem}
+.pros li{margin-bottom:.6rem}
+
+footer{border-top:1px solid var(--line);padding:3rem 0 4rem;font-size:.95rem}
+.refs{padding-left:1.2rem;color:var(--muted)}
+.refs li{margin-bottom:.6rem}
+.author{font-family:var(--display);font-weight:700;margin-top:2rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Secciones">
+    <a href="#origen">Origen</a>
+    <a href="#criterios">Los cinco criterios</a>
+    <a href="#constructor">Crea tu objetivo</a>
+    <a href="#quiz">Ponte a prueba</a>
+    <a href="#scrum">SMART en Scrum</a>
+  </nav>
+
+  <header class="hero">
+    <h1>Objetivos SMART</h1>
+    <p class="lead">Una meta vaga no se puede cumplir porque nadie sabe cuándo está terminada. Toca cada letra y observa cómo «quiero mejorar en programación» se convierte en un objetivo que sí se puede lograr.</p>
+
+    <div class="letters" role="group" aria-label="Criterios SMART">
+      <button class="letter" data-k="S" aria-pressed="false"><b>S</b><span>Específico</span></button>
+      <button class="letter" data-k="M" aria-pressed="false"><b>M</b><span>Medible</span></button>
+      <button class="letter" data-k="A" aria-pressed="false"><b>A</b><span>Alcanzable</span></button>
+      <button class="letter" data-k="R" aria-pressed="false"><b>R</b><span>Relevante</span></button>
+      <button class="letter" data-k="T" aria-pressed="false"><b>T</b><span>Temporal</span></button>
+    </div>
+
+    <div class="goal">
+      <p class="goal-text" id="goalText" aria-live="polite"></p>
+      <div class="meter"><div class="meter-bar"><i id="meterFill"></i></div><span id="meterLabel">0 de 5 criterios</span></div>
+      <p class="hint" id="goalHint">Empieza por la S.</p>
+    </div>
+  </header>
+</div>
+
+<section id="origen">
+  <div class="wrap split">
+    <div class="prose">
+      <h2>¿Qué es la técnica SMART?</h2>
+      <p>SMART es un acrónimo en inglés que sirve como lista de verificación para redactar objetivos claros. Un objetivo SMART dice exactamente qué se quiere lograr, cómo se medirá el avance, si es posible con los recursos disponibles, por qué importa y para cuándo debe estar listo.</p>
+      <p>La técnica fue propuesta por George T. Doran en 1981, en un artículo de la revista <i>Management Review</i> dirigido a gerentes que necesitaban fijar metas para sus equipos. Su idea central era sencilla: un objetivo bien escrito permite saber sin discusión si se cumplió o no.</p>
+      <p>Con los años, el acrónimo se popularizó en la educación, la administración de proyectos y el desarrollo de software. Por eso existen varias versiones de lo que significa cada letra; la más usada hoy en español es la de la columna de la derecha en la tabla.</p>
+      <p>Su respaldo teórico viene de la teoría del establecimiento de metas de Edwin Locke y Gary Latham, que encontró que las metas específicas y desafiantes producen mejor desempeño que las metas generales como «haz tu mejor esfuerzo».</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.75rem">Versión original y versión actual</h3>
+      <div class="scroll">
+        <table class="compare">
+          <thead><tr><th scope="col">Letra</th><th scope="col">Doran (1981)</th><th scope="col">Uso común hoy</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>Specific</td><td>Específico</td></tr>
+            <tr><td>M</td><td>Measurable</td><td>Medible</td></tr>
+            <tr><td>A</td><td>Assignable (asignable a alguien)</td><td>Alcanzable</td></tr>
+            <tr><td>R</td><td>Realistic</td><td>Relevante</td></tr>
+            <tr><td>T</td><td>Time-related</td><td>Temporal (con fecha límite)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="aside-note">Doran aclaró que no todo objetivo tiene que cumplir los cinco criterios al pie de la letra; la lista es una guía para pensar mejor la meta, no una regla rígida.</p>
+    </div>
+  </div>
+</section>
+
+<section id="criterios">
+  <div class="wrap">
+    <h2>Los cinco criterios</h2>
+    <p class="lead prose">Cada letra responde una pregunta distinta. Los ejemplos usan el módulo de consulta de calificaciones visto en clase.</p>
+    <div class="tabs" role="tablist" aria-label="Criterios">
+      <button class="tab" role="tab" id="tab-S" aria-controls="panel" data-k="S" aria-selected="true">Específico</button>
+      <button class="tab" role="tab" id="tab-M" aria-controls="panel" data-k="M" aria-selected="false" tabindex="-1">Medible</button>
+      <button class="tab" role="tab" id="tab-A" aria-controls="panel" data-k="A" aria-selected="false" tabindex="-1">Alcanzable</button>
+      <button class="tab" role="tab" id="tab-R" aria-controls="panel" data-k="R" aria-selected="false" tabindex="-1">Relevante</button>
+      <button class="tab" role="tab" id="tab-T" aria-controls="panel" data-k="T" aria-selected="false" tabindex="-1">Temporal</button>
+    </div>
+    <div class="panel" id="panel" role="tabpanel" aria-labelledby="tab-S" tabindex="0"></div>
+  </div>
+</section>
+
+<section id="constructor">
+  <div class="wrap">
+    <h2>Crea tu propio objetivo SMART</h2>
+    <p class="lead prose">Responde cada pregunta. El objetivo se arma solo y la lista te indica qué criterio todavía falta.</p>
+    <div class="builder">
+      <form id="form" onsubmit="return false">
+        <div class="field"><label for="fS"><b>S</b> ¿Qué quieres lograr exactamente? <em>Acción + qué</em></label><input id="fS" placeholder="Aprobar la certificación de MySQL" autocomplete="off"></div>
+        <div class="field"><label for="fM"><b>M</b> ¿Cómo sabrás que lo lograste? <em>Usa un número</em></label><input id="fM" placeholder="con al menos 80 puntos de 100" autocomplete="off"></div>
+        <div class="field"><label for="fA"><b>A</b> ¿Qué harás para lograrlo? <em>Recursos y tiempo</em></label><input id="fA" placeholder="estudiando 45 minutos diarios con el curso de la escuela" autocomplete="off"></div>
+        <div class="field"><label for="fR"><b>R</b> ¿Para qué te sirve? <em>Por qué importa</em></label><input id="fR" placeholder="para reforzar lo visto en Taller de Base de Datos" autocomplete="off"></div>
+        <div class="field"><label for="fT"><b>T</b> ¿Para cuándo? <em>Fecha límite</em></label><input id="fT" type="date"></div>
+        <div class="btns">
+          <button type="button" class="btn ghost" id="loadEx">Cargar ejemplo</button>
+          <button type="button" class="btn ghost" id="clear">Borrar campos</button>
+        </div>
+      </form>
+      <div class="result">
+        <h3>Tu objetivo</h3>
+        <p class="out empty" id="out">Aquí aparecerá tu objetivo cuando empieces a escribir.</p>
+        <ul class="checks" id="checks"></ul>
+        <button type="button" class="btn" id="copy">Copiar objetivo</button>
+        <p class="status" id="copyStatus" role="status"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="wrap">
+    <h2>Ponte a prueba</h2>
+    <p class="lead prose">Lee cada objetivo y elige el criterio que más le falta. Si está completo, elige «Ya es SMART».</p>
+    <div class="quiz">
+      <div class="q-meta"><span id="qNum"></span><span id="qScore"></span></div>
+      <p class="q-text" id="qText"></p>
+      <p class="q-prompt">¿Qué criterio falla?</p>
+      <div class="opts" id="opts"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button type="button" class="btn" id="next" hidden>Siguiente objetivo</button>
+    </div>
+  </div>
+</section>
+
+<section id="scrum">
+  <div class="wrap">
+    <h2>SMART dentro de Scrum</h2>
+    <p class="lead prose">La Guía Scrum no menciona la técnica SMART, pero ayuda a redactar con precisión varios elementos del marco de trabajo.</p>
+    <div class="scrum">
+      <div>
+        <h3>Objetivo del Sprint</h3>
+        <p>El Sprint Goal debe dar una meta clara al equipo. Escribirlo de forma específica y con un resultado verificable al final del Sprint evita que se convierta en una lista de tareas sin dirección.</p>
+      </div>
+      <div>
+        <h3>Definition of Done</h3>
+        <p>Los criterios de calidad, como la cobertura de pruebas o el tiempo de respuesta, deben tener valores medibles cuando el producto lo requiera. La M de SMART obliga a escribir «responde en menos de 2 segundos» en lugar de «responde rápido».</p>
+      </div>
+      <div>
+        <h3>Retrospectiva</h3>
+        <p>Las mejoras acordadas en la retrospectiva funcionan mejor cuando tienen responsable y fecha. Así, en el siguiente Sprint el equipo puede revisar si de verdad se aplicaron.</p>
+      </div>
+    </div>
+    <div class="transform prose">
+      <p><strong>Antes:</strong> «La consulta de calificaciones debe ser segura.»</p>
+      <p style="margin:0"><strong>Con SMART:</strong> «Al cierre del Sprint 2, el equipo verificará con 10 pruebas de integración que ningún estudiante pueda ver las calificaciones de otra cuenta al modificar una solicitud, para cumplir el criterio CA-04 antes de la revisión con el Product Owner.»</p>
+    </div>
+  </div>
+</section>
+
+<section id="ventajas">
+  <div class="wrap">
+    <h2>Ventajas y limitaciones</h2>
+    <div class="pros">
+      <div>
+        <h3 style="margin-bottom:.75rem">Ventajas</h3>
+        <ul>
+          <li>Elimina la ambigüedad: todos entienden lo mismo al leer el objetivo.</li>
+          <li>Permite medir el avance y saber cuándo algo está terminado.</li>
+          <li>Facilita repartir responsabilidades dentro de un equipo.</li>
+          <li>Es fácil de aprender y se aplica a metas personales, escolares o de proyecto.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.75rem">Limitaciones</h3>
+        <ul>
+          <li>Puede llevar a elegir metas fáciles solo porque son «alcanzables».</li>
+          <li>Medir números no siempre refleja la calidad real del trabajo.</li>
+          <li>En proyectos muy inciertos, una fecha fija puede volverse irreal y hay que revisarla.</li>
+          <li>No dice cómo lograr el objetivo; solo ayuda a definirlo bien.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2 style="font-size:1.5rem">Referencias</h2>
+    <ul class="refs">
+      <li>Doran, G. T. (1981). There’s a S.M.A.R.T. way to write management’s goals and objectives. <i>Management Review, 70</i>(11), 35–36.</li>
+      <li>Locke, E. A. y Latham, G. P. (1990). <i>A theory of goal setting &amp; task performance</i>. Prentice Hall.</li>
+      <li>Schwaber, K. y Sutherland, J. (2020). <i>La Guía Scrum</i>. Scrum.org.</li>
+    </ul>
+    <p class="author">Elaborado por Omar Martínez Santiago · Ingeniería en Sistemas Computacionales</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- Hero: afilador de objetivos ---------- */
+  var active = {S:false,M:false,A:false,R:false,T:false};
+  var segs = {
+    M:", hasta completar 40 ejercicios registrados en mi bitácora",
+    A:", dedicando una hora diaria de lunes a viernes",
+    R:", para llegar preparado al examen de Estructura de Datos",
+    T:", antes del 30 de noviembre de 2026"
+  };
+  var hints = {
+    S:"Específico: ya no dice «mejorar», dice qué tema y con qué lenguaje.",
+    M:"Medible: 40 ejercicios es un número que se puede contar.",
+    A:"Alcanzable: una hora diaria es un esfuerzo posible para un estudiante.",
+    R:"Relevante: el objetivo se conecta con algo que importa ahora.",
+    T:"Temporal: hay una fecha para revisar si se cumplió."
+  };
+  var goalText = document.getElementById('goalText');
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function renderGoal(last){
+    var html = active.S
+      ? 'Quiero <mark>resolver ejercicios de estructuras de datos en Python</mark>'
+      : 'Quiero mejorar en programación';
+    ['M','A','R','T'].forEach(function(k){ if(active[k]) html += '<mark>'+esc(segs[k])+'</mark>'; });
+    goalText.innerHTML = html + '.';
+    var n = Object.keys(active).filter(function(k){return active[k]}).length;
+    document.getElementById('meterFill').style.width = (n*20)+'%';
+    document.getElementById('meterLabel').textContent = n+' de 5 criterios';
+    var hint = document.getElementById('goalHint');
+    if(n===5) hint.textContent = 'Listo: este objetivo ya es SMART. Cualquier persona puede verificar si se cumplió.';
+    else if(last && active[last]) hint.textContent = hints[last];
+    else if(n===0) hint.textContent = 'Empieza por la S.';
+    else hint.textContent = 'Faltan '+(5-n)+' criterios.';
+  }
+  document.querySelectorAll('.letter').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.k; active[k]=!active[k];
+      b.setAttribute('aria-pressed',active[k]); renderGoal(k);
+    });
+  });
+  renderGoal();
+
+  /* ---------- Criterios ---------- */
+  var crit = {
+    S:{name:'Específico',doran:'Specific',def:'Dice con claridad qué se quiere lograr, sin palabras generales como «mejorar» u «optimizar».',
+       qs:['¿Qué quiero lograr exactamente?','¿Quién participa?','¿En qué parte del sistema o de mi vida?'],
+       weak:'Mejorar la aplicación de calificaciones.',strong:'Agregar el filtro por periodo académico a la pantalla de consulta de calificaciones.'},
+    M:{name:'Medible',doran:'Measurable',def:'Incluye un indicador numérico o una evidencia que permita comprobar el avance y el resultado.',
+       qs:['¿Cuánto?','¿Cuántas veces?','¿Cómo sabré que ya lo logré?'],
+       weak:'Que la consulta sea rápida.',strong:'Que la consulta responda en menos de 2 segundos en el 95 % de las solicitudes.'},
+    A:{name:'Alcanzable',doran:'Assignable',def:'Es posible con el tiempo, las personas y los recursos disponibles. Doran lo planteó como «asignable»: debe quedar claro quién lo hará.',
+       qs:['¿Tengo el tiempo y las herramientas?','¿Quién es responsable?','¿Es un reto posible o una fantasía?'],
+       weak:'Terminar todo el sistema académico esta semana.',strong:'Completar 3 historias de usuario en el Sprint de dos semanas, según la velocidad que ha mostrado el equipo.'},
+    R:{name:'Relevante',doran:'Realistic',def:'Está alineado con una meta mayor y aporta valor real al usuario, al proyecto o a la persona.',
+       qs:['¿Para qué sirve?','¿Se relaciona con el objetivo del producto?','¿Vale la pena el esfuerzo ahora?'],
+       weak:'Cambiar el logotipo del sistema durante el Sprint de seguridad.',strong:'Asegurar que cada estudiante solo pueda ver sus propias calificaciones, como pide el criterio CA-04.'},
+    T:{name:'Temporal',doran:'Time-related',def:'Tiene una fecha límite o un periodo definido, lo que permite planear y revisar el resultado.',
+       qs:['¿Para cuándo?','¿Qué puedo tener listo a mitad del plazo?','¿Cuándo se revisará?'],
+       weak:'Algún día publicaremos la versión móvil.',strong:'Publicar la versión móvil en el entorno de pruebas el 13 de noviembre de 2026.'}
+  };
+  var panel = document.getElementById('panel');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function showCrit(k){
+    var c = crit[k];
+    panel.setAttribute('aria-labelledby','tab-'+k);
+    panel.innerHTML =
+      '<div class="panel-letter" aria-hidden="true">'+k+'</div>'+
+      '<div><h3>'+c.name+'</h3><p>'+c.def+'</p><p style="color:var(--muted);font-size:.95rem;margin-bottom:.5rem">Preguntas guía:</p><ul>'+
+      c.qs.map(function(q){return '<li>'+q+'</li>'}).join('')+'</ul></div>'+
+      '<div><div class="ex weak"><small>Objetivo débil</small><p>«'+c.weak+'»</p></div>'+
+      '<div class="ex strong"><small>Objetivo '+c.name.toLowerCase()+'</small><p>«'+c.strong+'»</p></div>'+
+      '<p style="font-size:.9rem;color:var(--muted);margin:0">Término original de Doran: <i>'+c.doran+'</i></p></div>';
+    tabs.forEach(function(t){
+      var on = t.dataset.k===k;
+      t.setAttribute('aria-selected',on); t.tabIndex = on?0:-1;
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){showCrit(t.dataset.k)});
+    t.addEventListener('keydown',function(e){
+      var j = e.key==='ArrowRight'?(i+1)%tabs.length : e.key==='ArrowLeft'?(i-1+tabs.length)%tabs.length : -1;
+      if(j>-1){e.preventDefault();tabs[j].focus();showCrit(tabs[j].dataset.k);}
+    });
+  });
+  showCrit('S');
+
+  /* ---------- Constructor ---------- */
+  var f = {S:document.getElementById('fS'),M:document.getElementById('fM'),A:document.getElementById('fA'),R:document.getElementById('fR'),T:document.getElementById('fT')};
+  var out = document.getElementById('out'), checks = document.getElementById('checks');
+  var vague = /^(mejorar|ser mejor|hacerlo mejor|optimizar|avanzar|aprender)\b/i;
+  var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  function fmtDate(v){ var p=v.split('-'); return parseInt(p[2],10)+' de '+months[parseInt(p[1],10)-1]+' de '+p[0]; }
+  function lower(s){ return s.charAt(0).toLowerCase()+s.slice(1); }
+  function clean(s){ return s.trim().replace(/[.,;]+$/,''); }
+  function build(){
+    var v = {}; Object.keys(f).forEach(function(k){v[k]=clean(f[k].value)});
+    var parts = [];
+    if(v.S) parts.push(lower(v.S));
+    if(v.M) parts.push(v.M);
+    if(v.A) parts.push(v.A);
+    if(v.R) parts.push(v.R);
+    var today = new Date(); today.setHours(0,0,0,0);
+    var dateOk = false;
+    if(v.T){ var d=new Date(v.T+'T00:00:00'); dateOk = d>=today; parts.push('antes del '+fmtDate(v.T)); }
+    if(parts.length){ out.classList.remove('empty'); out.textContent = 'Voy a '+parts.join(', ')+'.'; }
+    else { out.classList.add('empty'); out.textContent = 'Aquí aparecerá tu objetivo cuando empieces a escribir.'; }
+    var list = [
+      ['S', v.S.length>=12 && !vague.test(v.S), v.S? (vague.test(v.S)?'Cambia «'+v.S.split(' ')[0]+'» por una acción concreta.':(v.S.length<12?'Agrega más detalle: qué y sobre qué.':'Dice qué vas a lograr.')):'Escribe qué quieres lograr.'],
+      ['M', /\d/.test(v.M), v.M? (/\d/.test(v.M)?'Tiene un número que se puede comprobar.':'Agrega una cantidad, porcentaje o puntaje.'):'Indica cómo lo medirás.'],
+      ['A', v.A.length>=10, v.A.length>=10?'Explica con qué recursos lo harás.':'Describe qué harás y con qué tiempo.'],
+      ['R', v.R.length>=8, v.R.length>=8?'Explica por qué importa.':'Escribe para qué te sirve.'],
+      ['T', dateOk, v.T?(dateOk?'Tiene fecha límite.':'La fecha ya pasó; elige una futura.'):'Elige una fecha límite.']
+    ];
+    checks.innerHTML = list.map(function(c){
+      return '<li class="'+(c[1]?'ok':'')+'"><span class="dot" aria-hidden="true">'+c[0]+'</span><span><span class="sr">'+(c[1]?'Cumple: ':'Falta: ')+'</span>'+esc(c[2])+'</span></li>';
+    }).join('');
+    try{ localStorage.setItem('smart-draft', JSON.stringify(v)); }catch(e){}
+  }
+  try{
+    var saved = JSON.parse(localStorage.getItem('smart-draft')||'null');
+    if(saved) Object.keys(f).forEach(function(k){ if(saved[k]) f[k].value = saved[k]; });
+  }catch(e){}
+  Object.keys(f).forEach(function(k){ f[k].addEventListener('input',build); });
+  document.getElementById('loadEx').addEventListener('click',function(){
+    var y = new Date().getFullYear()+ (new Date().getMonth()>=10?1:0);
+    f.S.value='Aprobar la certificación básica de MySQL';
+    f.M.value='con al menos 80 puntos de 100';
+    f.A.value='estudiando 45 minutos diarios con el curso en línea de la escuela';
+    f.R.value='para reforzar lo visto en Taller de Base de Datos';
+    f.T.value=y+'-12-15'; build();
+  });
+  document.getElementById('clear').addEventListener('click',function(){
+    Object.keys(f).forEach(function(k){f[k].value=''}); build(); f.S.focus();
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var st = document.getElementById('copyStatus');
+    if(out.classList.contains('empty')){ st.style.color='var(--bad)'; st.textContent='Escribe al menos un campo para copiar el objetivo.'; return; }
+    var done=function(){ st.style.color='var(--ok)'; st.textContent='Objetivo copiado.'; };
+    var fail=function(){ st.style.color='var(--bad)'; st.textContent='No se pudo copiar. Selecciona el texto y cópialo manualmente.'; };
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(out.textContent).then(done,fail); else fail();
+  });
+  build();
+
+  /* ---------- Quiz ---------- */
+  var Q = [
+    {t:'Aumentar 10 % las visitas a la página web de la escuela.',a:'T',e:'Es específico y medible, pero no dice para cuándo. Sin fecha no se puede revisar si se cumplió.'},
+    {t:'Leer más libros antes de que termine el año.',a:'M',e:'«Más libros» no es una cantidad. Bastaría con decir «leer 6 libros».'},
+    {t:'Aprender a hablar cinco idiomas con fluidez en un mes.',a:'A',e:'Tiene cantidad y plazo, pero no es posible con el tiempo disponible.'},
+    {t:'Mejorar el sistema antes del 15 de diciembre de 2026.',a:'S',e:'Tiene fecha, pero «mejorar el sistema» no dice qué parte ni qué cambio.'},
+    {t:'Durante el Sprint de seguridad del módulo de calificaciones, el equipo aprenderá a editar video para el canal de la escuela.',a:'R',e:'Puede ser útil en otro momento, pero no aporta al objetivo del Sprint ni al producto.'},
+    {t:'Al cierre del Sprint 3, el equipo dejará 20 pruebas unitarias del filtro por periodo pasando sin fallos, para cumplir la Definition of Done.',a:'OK',e:'Es específico, tiene número, es posible en un Sprint, se conecta con la DoD y tiene fecha.'}
+  ];
+  var opts = [['S','S'],['M','M'],['A','A'],['R','R'],['T','T'],['OK','Ya es SMART']];
+  var names = {S:'Específico',M:'Medible',A:'Alcanzable',R:'Relevante',T:'Temporal',OK:'Ya es SMART'};
+  var qi=0, score=0;
+  var optBox=document.getElementById('opts'), fb=document.getElementById('feedback'), next=document.getElementById('next');
+  function showQ(){
+    var q=Q[qi];
+    document.getElementById('qNum').textContent='Objetivo '+(qi+1)+' de '+Q.length;
+    document.getElementById('qScore').textContent='Aciertos: '+score;
+    document.getElementById('qText').textContent='«'+q.t+'»';
+    fb.innerHTML=''; next.hidden=true;
+    optBox.innerHTML=opts.map(function(o){return '<button type="button" class="opt" data-v="'+o[0]+'" aria-label="'+names[o[0]]+'">'+o[1]+'</button>'}).join('');
+    optBox.querySelectorAll('.opt').forEach(function(b){ b.addEventListener('click',function(){answer(b)}) });
+  }
+  function answer(b){
+    var q=Q[qi], ok=b.dataset.v===q.a;
+    if(ok) score++;
+    optBox.querySelectorAll('.opt').forEach(function(x){
+      x.disabled=true;
+      if(x.dataset.v===q.a) x.classList.add('right'); else if(x===b) x.classList.add('wrong');
+    });
+    fb.innerHTML='<strong style="color:var('+(ok?'--ok':'--bad')+')">'+(ok?'Correcto.':'Respuesta: '+names[q.a]+'.')+'</strong> '+esc(q.e);
+    document.getElementById('qScore').textContent='Aciertos: '+score;
+    next.textContent = qi<Q.length-1 ? 'Siguiente objetivo' : 'Ver resultado';
+    next.hidden=false; next.focus();
+  }
+  next.addEventListener('click',function(){
+    if(qi<Q.length-1){ qi++; showQ(); return; }
+    document.getElementById('qNum').textContent='Resultado';
+    document.getElementById('qText').textContent='Obtuviste '+score+' de '+Q.length+' aciertos.';
+    optBox.innerHTML=''; fb.textContent = score===Q.length ? 'Identificas bien los cinco criterios.' : 'Repasa los criterios en los que fallaste y vuelve a intentarlo.';
+    next.textContent='Repetir el cuestionario'; next.onclick=function(){ next.onclick=null; qi=0; score=0; showQ(); };
+  });
+  showQ();
+})();
+</script>
+</body>
+</html>
